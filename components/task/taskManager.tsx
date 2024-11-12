@@ -9,7 +9,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CalendarIcon, Pencil, Trash2, Plus, Search } from 'lucide-react'
+import { CalendarIcon, Pencil, Trash2, Plus, Search, Loader2 } from 'lucide-react'
+import { Badge } from "@/components/ui/badge"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function TaskManager() {
   const { tareas, loading, error, agregarTarea, modificarTarea, borrarTarea } = useTareas()
@@ -71,13 +73,10 @@ export default function TaskManager() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Gestor de Tareas</h1>
+    <div className="container mx-auto p-4 max-w-4xl">
+      <h1 className="text-4xl font-bold mb-8 text-center">Gestor de Tareas</h1>
       
-      {loading && <p className="text-gray-600">Cargando tareas...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      
-      <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <div className="flex items-center w-full md:w-auto">
           <Search className="mr-2 h-4 w-4 text-gray-500" />
           <Input
@@ -141,44 +140,55 @@ export default function TaskManager() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        {tareasFiltradas.map(tarea => (
-          <Card key={tarea.id} className="flex flex-col">
-            <CardHeader>
-              <CardTitle>{tarea.titulo}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p>{tarea.descripcion}</p>
-              <p className="text-sm text-gray-500 mt-2">
-                <CalendarIcon className="inline mr-1" size={16} />
-                {tarea.fecha_vencimiento}
-              </p>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Select 
-                defaultValue={tarea.estado} 
-                onValueChange={(value: 'pendiente' | 'completada') => handleEstadoChange(tarea.id!, value)}
-              >
-                <SelectTrigger className="w-[120px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pendiente">Pendiente</SelectItem>
-                  <SelectItem value="completada">Completada</SelectItem>
-                </SelectContent>
-              </Select>
-              <div>
-                <Button variant="outline" size="icon" className="mr-2" onClick={() => handleEdit(tarea)}>
-                  <Pencil className="h-4 w-4" />
-                </Button>
-                <Button variant="destructive" size="icon" onClick={() => handleDelete(tarea.id!)}>
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      ) : error ? (
+        <div className="text-center text-red-500 p-4 bg-red-100 rounded-md">
+          {error}
+        </div>
+      ) : tareasFiltradas.length === 0 ? (
+        <div className="text-center text-gray-500 p-8 rounded-md">
+          No se encontraron tareas. ¡Agrega una nueva tarea para comenzar!
+        </div>
+      ) : (
+        <ScrollArea className="h-[calc(120vh-250px)] rounded-md border p-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pr-4">
+            {tareasFiltradas.map(tarea => (
+              <Card key={tarea.id} className="flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-semibold">{tarea.titulo}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-sm text-gray-600 mb-2">{tarea.descripcion}</p>
+                  <div className="flex items-center text-sm text-gray-500 mt-2">
+                    <CalendarIcon className="mr-1" size={14} />
+                    {tarea.fecha_vencimiento}
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-between items-center">
+                  <Badge 
+                    variant={tarea.estado === 'completada' ? 'default' : 'secondary'}
+                    className="cursor-pointer"
+                    onClick={() => handleEstadoChange(tarea.id!, tarea.estado === 'completada' ? 'pendiente' : 'completada')}
+                  >
+                    {tarea.estado === 'completada' ? 'Completada' : 'Pendiente'}
+                  </Badge>
+                  <div>
+                    <Button variant="ghost" size="sm" className="mr-2" onClick={() => handleEdit(tarea)}>
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700" onClick={() => handleDelete(tarea.id!)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </ScrollArea>
+      )}
 
       <Dialog open={dialogoEdicionAbierto} onOpenChange={setDialogoEdicionAbierto}>
         <DialogContent>

@@ -1,53 +1,70 @@
-# Next.js & NextUI Template
+# PowerSales Tareas
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+Este es un proyecto de prueba técnica para PowerSales. Es una aplicación de gestión de tareas construida con React y TypeScript.
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+## Características
 
-## Technologies Used
+- Crear, editar y eliminar tareas.
+- Filtrar tareas por estado (todas, pendientes, completadas).
+- Buscar tareas por título o descripción.
+- Interfaz de usuario moderna y responsiva.
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## Tecnologías Utilizadas
 
-## How to Use
+- React
+- TypeScript
+- Next.js
+- Tailwind CSS
+- Axios
+- Lucide React (iconos)
+- Framer Motion (animaciones)
 
-### Use the template with create-next-app
+## Instalación
 
-To create a new project based on this template using `create-next-app`, run the following command:
+1. Clona el repositorio:
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+   ```bash
+   git clone https://github.com/tu-usuario/powersales-tareas.git
+   
 
-### Install dependencies
+2. Navega al directorio del proyecto:
+   ```bash
+    cd powersales-tareas
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+3. Instala las dependencias:
+   ```bash
+    npm install
 
-```bash
-npm install
-```
+## Uso
+1. Inicia el servidor de desarrollo:
+   ```bash
+    npm run dev
 
-### Run the development server
+2. Abre tu navegador y navega a http://localhost:3000.
 
-```bash
-npm run dev
-```
+## Estructura del Proyecto
 
-### Setup pnpm (optional)
+- `components/`: Componentes reutilizables de la interfaz de usuario.
+- `hooks/`: Hooks personalizados para manejar la lógica de negocio.
+- `models/`: Definiciones de modelos de datos.
+- `pages/`: Páginas de la aplicación.
+- `services/`: Servicios para interactuar con la API.
+- `styles/`: Archivos de estilos globales.
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+## Contribución
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
+Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+1. Haz un fork del repositorio.
+2. Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`).
+3. Realiza tus cambios y haz commit (`git commit -am 'Agrega nueva característica'`).
+4. Sube tus cambios a tu fork (`git push origin feature/nueva-caracteristica`).
+5. Abre un Pull Request.
 
-## License
+## Licencia
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+## Contacto
+
+Desarrollado por [Ilan Néstor Angeles Rodriguez](https://www.linkedin.com/in/ilannestorangelesrodriguez/).

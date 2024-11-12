@@ -9,8 +9,8 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Sobre Nosotros",
-      href: "/about",
+      label: "Tareas",
+      href: "/task",
     },
   ],
   navMenuItems: [
