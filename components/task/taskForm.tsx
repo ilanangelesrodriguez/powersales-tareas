@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type TaskFormProps = {
   tarea: Tarea
@@ -16,6 +16,10 @@ type TaskFormProps = {
 
 export default function TaskForm({ tarea, open, onOpenChange, onSubmit, title, submitText }: TaskFormProps) {
   const [formTarea, setFormTarea] = useState<Tarea>(tarea)
+
+  useEffect(() => {
+    setFormTarea(tarea)
+  }, [tarea])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
