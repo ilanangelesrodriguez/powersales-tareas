@@ -4,10 +4,8 @@ import { Tarea } from '../models/tarea.model';
 export const obtenerTareas = async (): Promise<Tarea[]> => {
     try {
         const response = await api.get('/tareas');
-        console.log(response);
         return response.data;
     } catch (error) {
-        console.error('Error obteniendo tareas:', error);
         throw error;
     }
 };
@@ -17,7 +15,6 @@ export const obtenerTareaPorId = async (id: string): Promise<Tarea> => {
         const response = await api.get(`/tareas/${id}`);
         return response.data;
     } catch (error) {
-        console.error(`Error obteniendo tarea con id ${id}:`, error);
         throw error;
     }
 };
@@ -25,11 +22,9 @@ export const obtenerTareaPorId = async (id: string): Promise<Tarea> => {
 export const crearTarea = async (tarea: Tarea): Promise<Tarea> => {
     try {
         const response = await api.post('/tareas', tarea);
-        console.log(response);
         return response.data;
         
     } catch (error) {
-        console.error('Error creando tarea:', error);
         throw error;
     }
 };
