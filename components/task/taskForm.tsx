@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useState } from 'react'
 
 type TaskFormProps = {
   tarea: Tarea
@@ -14,14 +15,16 @@ type TaskFormProps = {
 }
 
 export default function TaskForm({ tarea, open, onOpenChange, onSubmit, title, submitText }: TaskFormProps) {
+  const [formTarea, setFormTarea] = useState<Tarea>(tarea)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(tarea)
+    onSubmit(formTarea)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    onSubmit({ ...tarea, [name]: value })
+    setFormTarea({ ...formTarea, [name]: value })
   }
 
   return (
@@ -34,14 +37,14 @@ export default function TaskForm({ tarea, open, onOpenChange, onSubmit, title, s
           <div className="grid gap-4 py-4">
             <Input
               name="titulo"
-              value={tarea.titulo}
+              value={formTarea.titulo}
               onChange={handleInputChange}
               placeholder="Título"
               required
             />
             <Textarea
               name="descripcion"
-              value={tarea.descripcion}
+              value={formTarea.descripcion}
               onChange={handleInputChange}
               placeholder="Descripción"
               required
@@ -49,7 +52,7 @@ export default function TaskForm({ tarea, open, onOpenChange, onSubmit, title, s
             <Input
               type="date"
               name="fecha_vencimiento"
-              value={tarea.fecha_vencimiento}
+              value={formTarea.fecha_vencimiento}
               onChange={handleInputChange}
               required
             />
