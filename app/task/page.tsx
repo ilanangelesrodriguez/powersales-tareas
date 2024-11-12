@@ -37,9 +37,13 @@ export default function TaskPage() {
   }
 
   const handleSubmitEdicion = async (tarea: Tarea) => {
-    await modificarTarea(tarea.id!, tarea)
-    setEditandoTarea(null)
-    setDialogoEdicionAbierto(false)
+    if (tarea.id) {
+      await modificarTarea(tarea.id, tarea)
+      setEditandoTarea(null)
+      setDialogoEdicionAbierto(false)
+    } else {
+      console.error('Error: El ID de la tarea es undefined')
+    }
   }
 
   const handleEdit = (tarea: Tarea) => {
