@@ -8,7 +8,7 @@ type AddTaskButtonProps = {
 export default function AddTaskButton({ onOpenDialog }: AddTaskButtonProps) {
   return (
     <Button onClick={onOpenDialog}>
-      <Plus className="mr-2 h-4 w-4" /> Agregar Nueva Tarea
+      <Plus className="mr-2 h-4 w-4" />Agregar Tarea
     </Button>
   )
 }
